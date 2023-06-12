@@ -2,12 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://35.188.100.25:27017/mydatabase', {
+const mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/mydatabase";
+mongoose.connect(mongodbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
     .then(() => {
-        console.log('Connected to MongoDB');
+        console.log(`Connected to MongoDB ${mongodbUri}`);
     })
     .catch((error) => {
         console.error('Error connecting to MongoDB:', error);
