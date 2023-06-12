@@ -1,30 +1,25 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 
+// Connect to MongoDB
+mongoose.connect('mongodb://35.188.100.25:27017/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
+
+// Create an Express app
 const app = express();
+
+// Define your routes and middleware here
+
+// Start the server
 const port = 3000;
-
-app.get('/api/records', async (req, res) => {
-  try {
-    // Establish a connection to the MongoDB database
-    const client = await MongoClient.connect('mongodb://localhost:27017');
-    const db = client.db('mydatabase');
-
-    // Fetch records from the MongoDB collection/table
-    const collection = db.collection('mycollection');
-    const records = await collection.find().toArray();
-
-    // Close the database connection
-    client.close();
-
-    // Return the fetched records as the API response
-    res.json(records);
-  } catch (error) {
-    console.error('Error fetching records:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 app.listen(port, () => {
-  console.log(`Microservice listening at http://localhost:${port}`);
+  console.log(`Server is running on port ${port}`);
 });
