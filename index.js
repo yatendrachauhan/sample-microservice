@@ -16,8 +16,12 @@ mongoose.connect('mongodb://35.188.100.25:27017/mydatabase', {
 // Create an Express app
 const app = express();
 
+// Middleware for parsing JSON in request body
+app.use(express.json());
+
 // Create a collection (if not already created)
 app.post('/api/collection', (req, res) => {
+    console.log(req);
     const collectionName = req.body.collectionName;
     const collection = mongoose.connection.db.collection(collectionName);
     console.log(`Using collection: ${collectionName}`);
