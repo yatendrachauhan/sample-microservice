@@ -2,13 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-const mongodbUri = "mongodb://admin:admin@35.188.100.25:27017/mydatabase?authSource=admin" || "mongodb://localhost:27017/mydatabase";
+// const mongodbUri = "mongodb://admin:admin@35.188.100.25:27017/mydatabase?authSource=admin" || "mongodb://localhost:27017/mydatabase";
+const pEnv = process.env;
+const mongodbUri = (pEnv.MONGO_USER && pEnv.MONGO_HOST) ? 
+        `mongodb://${pEnv.MONGO_USER}:${pEnv.MONGO_PASS}@${pEnv.MONGO_HOST}:${pEnv.MONGO_PORT}/${pEnv.MONGO_DB}?authSource=admin` :
+        "mongodb://localhost:27017/mydatabase";
 console.log(mongodbUri);
-console.log(process.env.MONGODB_URI);
-console.log(process.env.MONGO_HOST);
-console.log(process.env.MONGO_DB);
-console.log(process.env.MONGO_USER);
-console.log(process.env.MONGO_PASS);
 mongoose.connect(mongodbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
