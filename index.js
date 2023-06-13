@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-const mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/mydatabase";
+const mongodbUri = "mongodb://admin:admin123@35.188.100.25:27017/mydatabase" || "mongodb://localhost:27017/mydatabase";
 mongoose.connect(mongodbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
