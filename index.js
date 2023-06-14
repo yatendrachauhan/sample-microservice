@@ -2,18 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-// const mongodbUri = "mongodb://admin:admin@35.188.100.25:27017/mydatabase?authSource=admin" || "mongodb://localhost:27017/mydatabase";
 const pEnv = process.env;
 const mongodbUri = (pEnv.MONGO_USER && pEnv.MONGO_HOST) ? 
         `mongodb://${pEnv.MONGO_USER}:${pEnv.MONGO_PASS}@${pEnv.MONGO_HOST}:${pEnv.MONGO_PORT}/${pEnv.MONGO_DB}?authSource=admin` :
         "mongodb://localhost:27017/mydatabase";
-console.log(mongodbUri);
 mongoose.connect(mongodbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
     .then(() => {
-        console.log(`Connected to MongoDB ${mongodbUri}`);
+        console.log(`Connected to MongoDB`);
     })
     .catch((error) => {
         console.error('Error connecting to MongoDB:', error);
@@ -67,8 +65,6 @@ app.get('/api/fetch/:collectionName', (req, res) => {
 app.get('/', (req, res) => {
     res.send(`Sample microservice app that will create a collection and provide facility to insert and fetch records. ${port}`);
 });
-
-// Define your routes and middleware here
 
 // Start the server
 const port = 3000;
