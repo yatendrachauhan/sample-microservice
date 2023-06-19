@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: nodejs
-          image: yatendrachauhan30/sample-microservice:0.0.11
+          image: yatendrachauhan30/sample-microservice:1.0.0
           ports:
             - containerPort: 3000
           env:
