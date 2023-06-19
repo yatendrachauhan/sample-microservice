@@ -26,7 +26,7 @@ app.use(express.json());
 // Create a collection (if not already created)
 app.post('/api/collection', (req, res) => {
     const collectionName = req.body.collectionName;
-    if (mongoose.connection) {
+    if (mongoose.connection && mongoose.connection.db.collection) {
         const collection = mongoose.connection.db.collection(collectionName);
         console.log(`Using collection: ${collectionName}`);
 
@@ -41,7 +41,7 @@ app.post('/api/insert', (req, res) => {
     const collectionName = req.body.collectionName;
     const documents = req.body.documents;
 
-    if (mongoose.connection) {
+    if (mongoose.connection && mongoose.connection.db.collection) {
         const collection = mongoose.connection.db.collection(collectionName);
         collection.insertMany(documents)
             .then(() => {
@@ -59,7 +59,7 @@ app.post('/api/insert', (req, res) => {
 app.get('/api/fetch/:collectionName', (req, res) => {
     const collectionName = req.params.collectionName;
 
-    if (mongoose.connection) {
+    if (mongoose.connection && mongoose.connection.db.collection) {
         const collection = mongoose.connection.db.collection(collectionName);
         collection.find().toArray()
             .then((documents) => {
@@ -74,7 +74,11 @@ app.get('/api/fetch/:collectionName', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.send(`Sample microservice app that will create a collection and provide facility to insert and fetch records.`);
+    res.send(`Sample microservice app that will create a collection and provide facility to insert and fetch records.
+                Use following urls: <br />
+                1) /api/collection - for creating new collection if not exist. Need to pass collection name in this form {"collectionName": <collection_name>} <br />
+                2) /api/insert - for inserting records. Need to pass collection name and records in this form {"collectionName":<collection_name>,"documents":[<records_list>]} <br />
+                3) /api/fetch/:collectionName - for getting the records. Need to replace collectionName with your collection name.`);
 });
 
 // Start the server

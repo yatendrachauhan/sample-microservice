@@ -17,4 +17,4 @@
 
 #### [Code Repo](https://github.com/yatendrachauhan/sample-microservice)
 #### [Docker Image](https://hub.docker.com/r/yatendrachauhan30/sample-microservice/tags)
-#### [Service API tier url for featching records](http://35.224.192.155:3000/api/fetch/mycollection)
+#### [Service API tier url for featching records](http://34.170.174.122:3000/api/fetch/mycollection)
